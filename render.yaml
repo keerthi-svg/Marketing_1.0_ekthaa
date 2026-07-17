@@ -1,0 +1,34 @@
+services:
+  # ── Backend: Express API ──────────────────────────────────────
+  - type: web
+    name: ekthaa-backend
+    runtime: node
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: node server.js
+    plan: free
+    envVars:
+      - key: PORT
+        value: 5001
+      - key: NODE_ENV
+        value: production
+      - key: SUPABASE_URL
+        value: https://mkssantsstctwjddwmec.supabase.co
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        value: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1rc3NhbnRzc3RjdHdqZGR3bWVjIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4MzkyOTc0MiwiZXhwIjoyMDk5NTA1NzQyfQ.QDsWNCl3bJCJ5xkt53BsG85ImL97bwhnRCzcofN0PNM
+      - key: JWT_SECRET
+        value: ekthaa_super_secret_jwt_key_change_this_in_production
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      - key: COOKIE_EXPIRES_DAYS
+        value: 7
+      - key: EMAIL_HOST
+        value: smtp.gmail.com
+      - key: EMAIL_PORT
+        value: 587
+      - key: EMAIL_USER
+        value: allamsettykeerthipriyanjali@gmail.com
+      - key: EMAIL_PASS
+        sync: false   # ← You will enter this manually in Render dashboard
+      - key: CLIENT_URL
+        value: https://eloquent-haupia-0f4a13.netlify.app
