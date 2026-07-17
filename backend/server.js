@@ -17,9 +17,22 @@ const app = express();
 // ── Security middleware ──
 app.use(helmet());
 
-// ── CORS – allow the Vite dev server ──
+// ── CORS – allow the Vite dev server and production frontend ──
+const allowedOrigins = [
+  process.env.CLIENT_URL,
+  'https://eloquent-haupia-0f4a13.netlify.app',
+  'http://localhost:3000',
+].filter(Boolean);
+
 app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:3000',
+  origin: (origin, callback) => {
+    // Allow requests with no origin (mobile apps, curl, etc.)
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error(`CORS: origin ${origin} not allowed`));
+    }
+  },
   credentials: true,           // required for cookies
 }));
 

@@ -1,8 +1,11 @@
 // services/api.js – Axios instance with proxy + cookie credentials
 import axios from 'axios';
 
+const BASE_URL =
+  import.meta.env.VITE_API_URL || 'https://ekthaa-backend.onrender.com/api';
+
 const api = axios.create({
-  baseURL: '/api',        // proxied by Vite → http://localhost:5000/api
+  baseURL: BASE_URL,
   withCredentials: true,  // send/receive HTTP-only cookies
   timeout: 10000,
 });
