@@ -1,0 +1,29 @@
+# Ekthaa Build Tasks
+
+- [x] Project scaffold (Vite + React)
+- [ ] Install dependencies (react-router-dom, framer-motion)
+- [ ] index.css – global design tokens
+- [ ] mockData.js – sample data
+- [ ] utils/formatTime.js
+- [ ] hooks/useTheme.js
+- [ ] hooks/useAnimatedCounter.js
+- [ ] components/ThemeToggle.jsx
+- [ ] components/AvatarRing.jsx
+- [ ] components/Badge.jsx
+- [ ] components/AnimatedCounter.jsx
+- [ ] components/EmptyState.jsx
+- [ ] components/PostCard.jsx
+- [ ] components/CreatePostModal.jsx
+- [ ] components/BottomNav.jsx
+- [ ] components/LeftNav.jsx
+- [ ] components/RightSidebar.jsx
+- [ ] pages/Home.jsx
+- [ ] pages/Leaderboard.jsx
+- [ ] pages/Profile.jsx
+- [ ] pages/Search.jsx
+- [ ] pages/Notifications.jsx
+- [ ] App.jsx – routing + layout
+- [ ] main.jsx
+- [ ] index.html
+- [ ] vite.config.js
+- [ ] Run dev server & verify
