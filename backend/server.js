@@ -1,6 +1,7 @@
 // server.js – Ekthaa Express app
 require('dotenv').config();
 
+const path           = require('path');
 const express        = require('express');
 const cors           = require('cors');
 const helmet         = require('helmet');
@@ -17,23 +18,12 @@ const app = express();
 // ── Security middleware ──
 app.use(helmet());
 
-// ── CORS – allow the Vite dev server and production frontend ──
-const allowedOrigins = [
-  process.env.CLIENT_URL,
-  'https://eloquent-haupia-0f4a13.netlify.app',
-  'http://localhost:3000',
-].filter(Boolean);
-
+// ── CORS – allow dev server (same origin in production) ──
 app.use(cors({
-  origin: (origin, callback) => {
-    // Allow requests with no origin (mobile apps, curl, etc.)
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error(`CORS: origin ${origin} not allowed`));
-    }
-  },
-  credentials: true,           // required for cookies
+  origin: process.env.NODE_ENV === 'production'
+    ? false                          // same-origin: no CORS header needed
+    : ['http://localhost:3000', 'http://localhost:5173'],
+  credentials: true,
 }));
 
 // ── Body parsers ──
@@ -67,10 +57,15 @@ app.use('/api/users',         userRoutes);
 // ── Health check ──
 app.get('/api/health', (req, res) => res.json({ status: 'ok', timestamp: new Date() }));
 
-// ── 404 handler ──
-app.use((req, res) => {
-  res.status(404).json({ success: false, message: `Route ${req.originalUrl} not found.` });
+// ── Serve React frontend (production) ──
+const distPath = path.join(__dirname, '../dist');
+app.use(express.static(distPath));
+
+// ── Catch-all: send index.html for React Router routes ──
+app.get('*', (req, res) => {
+  res.sendFile(path.join(distPath, 'index.html'));
 });
+
 
 // ── Global error handler ──
 app.use((err, req, res, _next) => {

@@ -1,11 +1,11 @@
 services:
-  # ── Backend: Express API ──────────────────────────────────────
+  # ── Full-stack: Express serves React frontend + API ──────────
   - type: web
     name: ekthaa-backend
     runtime: node
-    rootDir: backend
-    buildCommand: npm install
-    startCommand: node server.js
+    rootDir: .                              # project root
+    buildCommand: npm install && npm run build && cd backend && npm install
+    startCommand: node backend/server.js
     plan: free
     envVars:
       - key: PORT
@@ -29,6 +29,4 @@ services:
       - key: EMAIL_USER
         value: allamsettykeerthipriyanjali@gmail.com
       - key: EMAIL_PASS
-        sync: false   # ← You will enter this manually in Render dashboard
-      - key: CLIENT_URL
-        value: https://eloquent-haupia-0f4a13.netlify.app
+        sync: false   # Enter your Gmail App Password in Render dashboard
